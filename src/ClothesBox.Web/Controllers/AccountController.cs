@@ -54,8 +54,8 @@ namespace ClothesBox.Web.Controllers
             IMultiTenancyConfig multiTenancyConfig,
             LogInManager logInManager,
             ISessionAppService sessionAppService,
-            ILanguageManager languageManager, 
-            ITenantCache tenantCache, 
+            ILanguageManager languageManager,
+            ITenantCache tenantCache,
             IAuthenticationManager authenticationManager)
         {
             _tenantManager = tenantManager;
@@ -93,7 +93,7 @@ namespace ClothesBox.Web.Controllers
 
         [HttpPost]
         [DisableAuditing]
-        public async Task<JsonResult> Login(LoginViewModel loginModel, string returnUrl = "", string returnUrlHash = "")
+        public async Task<ActionResult> Login(LoginViewModel loginModel, string returnUrl = "", string returnUrlHash = "")
         {
             CheckModelState();
 
@@ -115,7 +115,18 @@ namespace ClothesBox.Web.Controllers
                 returnUrl = returnUrl + returnUrlHash;
             }
 
+            if (!Request.RawUrl.Contains("?"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             return Json(new AjaxResponse { TargetUrl = returnUrl });
+        }
+
+        public ActionResult ResetPassword()
+        {
+            var model = new ForgetPasswordModel();
+            return View(model);
         }
 
         private async Task<AbpLoginResult<Tenant, User>> GetLoginResultAsync(string usernameOrEmailAddress, string password, string tenancyName)
@@ -143,9 +154,12 @@ namespace ClothesBox.Web.Controllers
             // For having a consistent behaviour across all browsers, don't rely solely on browser behaviour for proper clean-up
             // of session cookies. It is safer to use non-session cookies (IsPersistent == true) in bundle with an expiration date.
             // See http://blog.petersondave.com/cookies/Session-Cookies-in-Chrome-Firefox-and-Sitecore/
-            if (rememberMe) {
+            if (rememberMe)
+            {
                 _authenticationManager.SignIn(new AuthenticationProperties { IsPersistent = true }, identity);
-            } else {
+            }
+            else
+            {
                 _authenticationManager.SignIn(
                     new AuthenticationProperties
                     {

@@ -24,10 +24,14 @@
     <meta name="author" content="">
 
     <link rel="shortcut icon" href="~/favicon.ico">
+    <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
 
     <title>ClothesBox</title>
 
     @Styles.Render("~/Bundles/vendor/css")
+    @Styles.Render("~/assets/plugins/global/plugins.bundle.css")
+    @Styles.Render("~/assets/css/style.bundle.css")
 
     <!-- View specific styles -->
     @RenderSection("styles", required: false)
@@ -37,122 +41,121 @@
         var abp = abp || {}; abp.appPath = '@ApplicationPath';
     </script>
 </head>
-<body class="@("theme-" + uiTheme)">
-    <!-- Page Loader -->
-    <div class="page-loader-wrapper">
-        <div class="loader">
-            <div class="preloader">
-                <div class="spinner-layer pl-red">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
+@*<body class="@("theme-" + uiTheme)">*@
+
+<body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed aside-enabled aside-fixed" style="--kt-toolbar-height:55px;--kt-toolbar-height-tablet-and-mobile:55px">
+
+     @*Page Loader*@ 
+    @*<div class="page-loader-wrapper">
+            <div class="loader">
+                <div class="preloader">
+                    <div class="spinner-layer pl-red">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
                     </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
+                </div>
+                <p>Please wait...</p>
+            </div>
+        </div>*@
+    @*#END# Page Loader*@
+
+    <!--begin::Root-->
+    <div class="d-flex flex-column flex-root">
+        <!--begin::Page-->
+        <div class="page d-flex flex-row flex-column-fluid">
+            <!--begin::Aside-->
+            <div id="kt_aside" class="aside aside-dark aside-hoverable" data-kt-drawer="true" data-kt-drawer-name="aside" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_aside_mobile_toggle">
+                @Html.Action("SideBarNav", "Layout", new { activeMenu = ViewBag.ActiveMenu })
+            </div>
+            <!--end::Aside-->
+
+            <!--begin::Wrapper-->
+            <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+                <!--begin::Header-->
+                <div id="kt_header" class="header align-items-stretch">
+                        <div class="container-fluid d-flex align-items-stretch justify-content-between">
+                            <div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1">
+                                <div class="d-flex align-items-stretch" id="kt_header_nav">
+                                    <h1 style="margin: 20px">@ViewBag.ActiveMenu</h1>
+                                </div>
+                                @Html.Action("ToolbarWrapper", "Layout")
+                            </div>
                     </div>
                 </div>
-            </div>
-            <p>Please wait...</p>
-        </div>
-    </div>
-    <!-- #END# Page Loader -->
-    <!-- Overlay For Sidebars -->
-    <div class="overlay"></div>
-    <!-- #END# Overlay For Sidebars -->
-    <!-- Search Bar -->
-    <div class="search-bar">
-        <div class="search-icon">
-            <i class="material-icons">search</i>
-        </div>
-        <input type="text" placeholder="START TYPING...">
-        <div class="close-search">
-            <i class="material-icons">close</i>
-        </div>
-    </div>
-    <!-- #END# Search Bar -->
-    <!-- Top Bar -->
-    <nav class="navbar">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
-                <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index"><i class="fa fa-cubes"></i> ClothesBox</a>
-            </div>
-            <div class="collapse navbar-collapse" id="navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <!-- Call Search -->
-                    <li><a href="javascript:void(0);" class="js-search" data-close="true"><i class="material-icons">search</i></a></li>
-                    <!-- #END# Call Search -->
-                    @Html.Action("LanguageSelection", "Layout")
+                <!--end::Header-->
 
-                    <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="material-icons">more_vert</i></a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!-- #Top Bar -->
-    <section>
-        <aside id="leftsidebar" class="sidebar">
-
-            @Html.Action("SideBarUserArea", "Layout")
-            @Html.Action("SideBarNav", "Layout", new { activeMenu = ViewBag.ActiveMenu })
-
-            <!-- Footer -->
-            <div class="legal">
-                <div class="copyright">
-                    &copy; @DateTime.Now.Year <a href="javascript:void(0);">ClothesBox</a>.
-                </div>
-                <div class="version">
-                    <b>Version </b> @AppVersionHelper.Version [@AppVersionHelper.ReleaseDate.ToString("yyyyMMdd")]
-                </div>
-            </div>
-            <!-- #Footer -->
-        </aside>
-
-        @Html.Action("RightSideBar", "Layout")
-
-    </section>
-
-    <section class="content">
-        <div class="container-fluid">
-            @if (alerts.Any())
-            {
-                <div id="AbpPageAlerts">
-                    @foreach (var alertMessage in alerts)
+                <!--<section>
+                    <!--<aside id="leftsidebar" class="sidebar">-->
+                        <!--@*@Html.Action("SideBarUserArea", "Layout")*@
+                        @*@Html.Action("SideBarNav", "Layout", new { activeMenu = ViewBag.ActiveMenu })*@
+                        @*Footer*@
+                        @*<div class="legal">
+                            <div class="copyright">
+                                &copy; @DateTime.Now.Year <a href="javascript:void(0);">ClothesBox</a>.
+                            </div>
+                            <div class="version">
+                                <b>Version </b> @AppVersionHelper.Version [@AppVersionHelper.ReleaseDate.ToString("yyyyMMdd")]
+                            </div>
+                        </div>*@
+                        @*#Footer*@-->
+                    <!--<!--</aside>-->
+                    <!--@*@Html.Action("RightSideBar", "Layout")*@
+                </section>-->
+                
+                <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+                    @if (alerts.Any())
                     {
-                        <div class="alert alert-@alertMessage.Type.ToString().ToLower() @(alertMessage.Dismissible ? "alert-dismisable" : "")" role="alert">
-                            <h4 class="alert-heading">
-                                @alertMessage.Title
-                                @if (alertMessage.Dismissible)
-                                {
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                }
-                            </h4>
-                            <p>@alertMessage.Text</p>
+                        <div id="AbpPageAlerts">
+                            @foreach (var alertMessage in alerts)
+                            {
+                                <div class="alert alert-@alertMessage.Type.ToString().ToLower() @(alertMessage.Dismissible ? "alert-dismisable" : "")" role="alert">
+                                    <h4 class="alert-heading">
+                                        @alertMessage.Title
+                                        @if (alertMessage.Dismissible)
+                                        {
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        }
+                                    </h4>
+                                    <p>@alertMessage.Text</p>
+                                </div>
+                            }
                         </div>
                     }
+
+                    @RenderBody()
                 </div>
-            }
 
-            @RenderBody()
+            </div>
+            <!--end::Wrapper-->
+
         </div>
-    </section>
+        <!--end::Page-->
+    </div>
+    <!--end::Root-->
 
-    @Scripts.Render("~/Bundles/vendor/js/bottom")
+    @*@Scripts.Render("~/Bundles/vendor/js/bottom")*@
 
-    <script>
+    @Html.IncludeScript("~/assets/plugins/global/plugins.bundle.js")
+    @Html.IncludeScript("~/assets/js/scripts.bundle.js")
+
+    @*<script>
         //Localizing momentjs
         moment.locale('@Thread.CurrentThread.CurrentUICulture.Name');
-    </script>
+    </script>*@
 
-    <!-- Dynamic scripts of ABP system (They are created on runtime and can not be bundled) -->
-    <script src="~/api/AbpServiceProxies/GetAll?v=@(Clock.Now.Ticks)"></script>
-    <script src="~/AbpScripts/GetScripts?v=@(Clock.Now.Ticks)" type="text/javascript"></script>
+    @*Dynamic scripts of ABP system (They are created on runtime and can not be bundled)*@
+    @*<script src="~/api/AbpServiceProxies/GetAll?v=@(Clock.Now.Ticks)"></script>*@
+    @*<script src="~/AbpScripts/GetScripts?v=@(Clock.Now.Ticks)" type="text/javascript"></script>*@
 
-    <!-- SignalR scripts -->
-    <script src="~/signalr/hubs"></script>
-    @Html.IncludeScript("~/Abp/Framework/scripts/libs/abp.signalr.js")
+    @*SignalR scripts*@
+    @*<script src="~/signalr/hubs"></script>*@
+    @*@Html.IncludeScript("~/Abp/Framework/scripts/libs/abp.signalr.js")*@
 
-    <!-- View specific scripts -->
+    @*View specific scripts*@
     @RenderSection("scripts", required: false)
 </body>
 </html>

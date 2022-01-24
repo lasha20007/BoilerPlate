@@ -46,6 +46,12 @@ namespace ClothesBox.Web.Controllers
         }
 
         [ChildActionOnly]
+        public PartialViewResult ToolbarWrapper()
+        {
+            return PartialView("_ToolbarWrapper");
+        }
+
+        [ChildActionOnly]
         public PartialViewResult SideBarUserArea()
         {
             var model = new SideBarUserAreaViewModel
