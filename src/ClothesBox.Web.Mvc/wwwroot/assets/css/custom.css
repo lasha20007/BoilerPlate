@@ -1,0 +1,20 @@
+.logo-container {
+    padding: 30px 25px;
+    width: 100%;
+}
+
+footer {
+    text-align: center;
+    background-color: #1e1e2d;
+    color: white;
+    padding: 10px;
+}
+
+#kt_header {
+    background-color: #1e1e2d;
+}
+
+.login-footer {
+    height: 5%;
+    background-color: #FFFFFF;
+}
