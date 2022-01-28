@@ -17,47 +17,26 @@
 <html lang="@LanguageManager.CurrentLanguage.Name">
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-
     <title>@pageTitle</title>
-
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,600" rel="stylesheet">
     @await Html.PartialAsync("_Styles.cshtml")
     @RenderSection("styles", required: false)
 </head>
 
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("Admin", "Index", "Home", new { area = "Admin" }, new { @class = "navbar-brand" })
-                <a href="@Url.Action("Logout", "Account")" class="menu-link px-5">Sign Out</a>
-
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
-        <h1 style="text-align: center">Klientis Landing Page</h1>
-        @RenderBody()
-        <hr />
+<body class="is-boxed has-animations">
+    <div class="body-wrap">
+        <header>
+            @await Html.PartialAsync("_Header.cshtml")
+        </header>
+        @RenderBody()   
         <footer>
-            <p>&copy; @DateTime.Now.Year - ClothesBox</p>
+            @await Html.PartialAsync("_Footer.cshtml")
         </footer>
     </div>
-
+    @await Html.PartialAsync("_Scripts.cshtml")
     @RenderSection("scripts", required: false)
     @WebResourceManager.RenderScripts()
 </body>
-
 </html>
