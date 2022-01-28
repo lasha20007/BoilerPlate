@@ -4,7 +4,7 @@ using ClothesBox.Controllers;
 
 namespace ClothesBox.Web.Controllers
 {
-    [AbpMvcAuthorize]
+    //[AbpMvcAuthorize]
     public class HomeController : ClothesBoxControllerBase
     {
         public ActionResult Index()

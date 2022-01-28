@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ClothesBox.Controllers
 {
-    public abstract class ClothesBoxControllerBase: AbpController
+    public abstract class ClothesBoxControllerBase : AbpController
     {
         protected ClothesBoxControllerBase()
         {

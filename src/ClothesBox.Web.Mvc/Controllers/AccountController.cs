@@ -28,10 +28,10 @@ using ClothesBox.Controllers;
 using ClothesBox.Identity;
 using ClothesBox.MultiTenancy;
 using ClothesBox.Sessions;
-using ClothesBox.Web.Models.Account;
-using ClothesBox.Web.Views.Shared.Components.TenantChange;
+using ClothesBox.Web.Areas.Admin.Models.Account;
+using ClothesBox.Web.Areas.Admin.Views.Shared.Components.TenantChange;
 
-namespace ClothesBox.Web.Controllers
+namespace ClothesBox.Web.Areas.Admin.Controllers
 {
     public class AccountController : ClothesBoxControllerBase
     {
@@ -376,7 +376,7 @@ namespace ClothesBox.Web.Controllers
 
         public string GetAppHomeUrl()
         {
-            return Url.Action("Index", "About");
+            return Url.Action("Index", "Home");
         }
 
         #endregion
